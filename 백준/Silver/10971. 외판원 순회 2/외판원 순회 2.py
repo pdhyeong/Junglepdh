@@ -12,7 +12,7 @@ visited = [0] * N
 tmp = 10000000
 add = 0
 
-def TSP(i, add, visited):
+def TSP(i, add):
     global tmp
     if add > tmp:
         return
@@ -23,14 +23,14 @@ def TSP(i, add, visited):
     for j in range(1, N):
         if maps[i][j] and visited[j] == 0:
             visited[j] = 1
-            TSP(j, add+maps[i][j], visited)
+            TSP(j, add+maps[i][j])
             visited[j] = 0
 
 
 for i in range(1, N):
     if maps[0][i]:
         visited[i] = 1
-        TSP(i, maps[0][i], visited)
+        TSP(i, maps[0][i])
         visited[i] = 0
 
 print(tmp)
