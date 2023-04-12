@@ -1,34 +1,33 @@
 import sys
-import math
+sys.setrecursionlimit(100000)
 
 input = sys.stdin.readline
 output = sys.stdout.write
 
-r,c = map(int,input().split())
+n,m = map(int,input().split())
 
-cnt = int(input())
+k = int(input())
 
-rlist = [0]
-clist = [0]
+row = [0]
+col = [0]
+for i in range(k):
+  a,b = map(int,input().split())
+  if a == 0:
+    row.append(b)
+  else:
+    col.append(b)
 
-for i in range(cnt):
-  direct, coor = map(int,input().split())
-  if direct == 1:
-    rlist.append(coor)
-  elif direct == 0:
-    clist.append(coor)
+row.sort()
+col.sort()
 
-rlist.sort()
-clist.sort()
+row.append(m)
+col.append(n)
 
-rlist.append(r)
-clist.append(c)
+r = []
+c = []
+for i in range(1,len(row)):
+  r.append(row[i]-row[i-1])
+for j in range(1,len(col)):
+  c.append(col[j]-col[j-1])
 
-subclist = []
-subrlist = []
-for i in range(1,len(clist)):
-  subclist.append(clist[i]-clist[i-1])
-for i in range(1,len(rlist)):
-  subrlist.append(rlist[i]-rlist[i-1])
-
-output(str(max(subclist) * max(subrlist)))
+print(max(r) * max(c))
