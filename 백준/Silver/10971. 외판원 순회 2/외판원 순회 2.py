@@ -3,34 +3,34 @@ import sys
 input = sys.stdin.readline
 output = sys.stdout.write
 
-N = int(input())
-maps = []
-for _ in range(N):
-    maps.append(list(map(int, input().split())))
+n = int(input())
+graph = []
+visited = [0]*n
+for i in range(n):
+  k = list(map(int,input().split()))
+  graph.append(k)
 
-visited = [0] * N
-tmp = 10000000
+tmp = 10000001
 add = 0
+def back(i,add):
+  global tmp
+  if add > tmp:
+    return
+  if sum(visited) == n-1:
+    if graph[i][0]:
+      tmp = min(tmp,add+graph[i][0])
+    return
+  for j in range(1,n):
+    if visited[j] == 0 and graph[i][j]:
+      visited[j] = 1
+      back(j,add + graph[i][j])
+      visited[j] = 0
 
-def TSP(i, add):
-    global tmp
-    if add > tmp:
-        return
-    if sum(visited) == N-1:
-        if maps[i][0]:
-            tmp = min(tmp, add+maps[i][0])
-        return
-    for j in range(1, N):
-        if maps[i][j] and visited[j] == 0:
-            visited[j] = 1
-            TSP(j, add+maps[i][j])
-            visited[j] = 0
 
-
-for i in range(1, N):
-    if maps[0][i]:
-        visited[i] = 1
-        TSP(i, maps[0][i])
-        visited[i] = 0
+for i in range(1,n):
+  if graph[0][i]:
+    visited[i] = 1
+    back(i,graph[0][i])
+    visited[i] = 0
 
 print(tmp)
