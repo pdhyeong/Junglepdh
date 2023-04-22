@@ -11,19 +11,16 @@ while True:
     break
 
 
-def postorder(graph):
-  if len(graph) == 0:
+def postorder(left,right):
+  if left > right:
     return
-  left,right = [],[]
-  root = graph[0]
-  for node in graph:
-    if node < root:
-      left.append(node)
-    elif node > root:
-      right.append(node)
-
-  postorder(left)
-  postorder(right)
-  print(root)
-
-postorder(graph)
+  mid = right + 1
+  for i in range(left,right+1):
+    if graph[i] > graph[left]:
+      mid = i
+      break
+  postorder(left+1,mid-1)
+  postorder(mid,right)
+  print(graph[left])
+  
+postorder(0,len(graph)-1)
