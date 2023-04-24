@@ -4,33 +4,34 @@ import sys
 sys.setrecursionlimit(10**5)
 input = sys.stdin.readline
 
-n = int(input())
-graph = [[] for _ in range(n+1)]
+n = int(input()) 
+color = [0] + list(map(int,input().rstrip()))
 
-color = input()
+graph = [[] for _ in range(n+1)] 
 flag = 0
-cnt = 0
+ans = 0
 
-def dfs(k):
+def dfs(v, cnt):
   global flag
-  global cnt
-  if color[k] == '1':
-    cnt += 2
-    return
-  if flag & 1 << k != 0:
-    return
-  flag = flag | 1 << k
-  for i in graph[k]:
-    if color[k] == '0':
-      dfs(i)
-    
-for i in range(n-1):
-  start , end = map(int,input().split())
-  graph[start].append(end)
-  graph[end].append(start)
+  flag = flag | 1 << v
+  for i in graph[v]:
+    if color[i] == 1:
+          cnt += 1 
+    elif flag & 1 << i == 0 and color[i] == 0:
+      cnt = dfs(i, cnt)
+  return cnt
 
-for i in range(1,n+1):
-  if flag & 1 << i == 0:
-    dfs(i)
+for _ in range(n-1): 
+    a, b = map(int, input().split())
+    graph[a].append(b)
+    graph[b].append(a)
+    if color[a] == 1 and color[b] == 1: 
+      ans +=2
 
-print(cnt)
+sum = 0
+for i in range(1, n+1):
+    if flag & 1 << i == 0 and color[i] == 0:
+        x = dfs(i, 0) 
+        sum += x*(x-1) 
+
+print(sum+ans)
