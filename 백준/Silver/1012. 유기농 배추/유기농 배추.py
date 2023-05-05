@@ -1,31 +1,29 @@
-import sys 
-sys.setrecursionlimit(10000)
+import sys
+sys.setrecursionlimit(100000)
+input = sys.stdin.readline
 
-def dfs(x, y):
-    dx = [1, -1, 0, 0]
-    dy = [0, 0, 1, -1]
+T = int(input())
+dx = [1,-1,0,0]
+dy = [0,0,1,-1]
 
-    for i in range(4): 
-        nx = x + dx[i]
-        ny = y + dy[i]
+for i in range(T):
+  n,m,k = map(int,input().split())
+  graph = [[0]*(m) for _ in range(n)]
+  cnt = 0
+  for snake in range(k):
+    a,b = map(int,input().split())
+    graph[a][b] = 1
+  def dfs(x,y):
+    for i in range(4):
+      nx = x + dx[i]
+      ny = y + dy[i]
+      if 0<=nx<n and 0<=ny<m and graph[nx][ny] == 1:
+        graph[nx][ny] = -1
+        dfs(nx,ny)
         
-        if (0 <= nx < N) and (0 <= ny < M): 
-            if matrix[nx][ny] == 1:
-                matrix[nx][ny] = -1 
-                dfs(nx, ny)
-T = int(input()) 
-for _ in range(T):
-    M, N, K = map(int, input().split())
-    matrix = [[0]*M for _ in range(N)]
-    cnt = 0 
-    
-    # 행렬 생성 
-    for _ in range(K):
-        m, n = map(int, input().split()) 
-        matrix[n][m] = 1
-    for i in range(N):
-        for j in range(M): 
-            if matrix[i][j] > 0:
-                dfs(i, j)
-                cnt += 1
-    print(cnt)
+  for x in range(n):
+    for y in range(m):
+      if graph[x][y] > 0:
+        dfs(x,y)
+        cnt += 1
+  print(cnt)
