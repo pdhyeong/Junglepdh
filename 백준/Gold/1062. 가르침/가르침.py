@@ -21,7 +21,7 @@ def countReadableWords(data, learned):
    return cnt
 
 if k >= 5:
-   learned = [0] * 123
+   learned = [0] * 200
    for x in first_word:
       learned[ord(x)] = 1
 
