@@ -1,15 +1,25 @@
 function solution(k, tangerine) {
-    const freq = new Map();
-    tangerine.forEach(t => freq.set(t, (freq.get(t) || 0) + 1));
-    
-    const counts = Array.from(freq.values()).sort((a, b) => b - a);
-    
-    let result = 0;
-    
-    while(k > 0) {
-        k -= counts.shift();
-        result++;
+    var answer = 0;
+    var fre = {};
+    var list = []
+    for(let i =0;i < tangerine.length;i++){
+        if (fre[tangerine[i]] == null){
+            fre[tangerine[i]] = 1
+        }
+        else{
+            fre[tangerine[i]] = fre[tangerine[i]] + 1
+        }
     }
-    
-    return result;
+    for (const value of Object.values(fre)) {
+        list.push(value);
+    }
+    list.sort((a,b) => b - a);
+    for(let i = 0;i < list.length ;i++) {
+        k -= list[i];
+        answer++;
+        if(k <= 0){
+            break;
+        }
+    }
+    return answer;
 }
