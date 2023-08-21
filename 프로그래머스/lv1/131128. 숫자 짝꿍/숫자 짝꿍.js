@@ -8,7 +8,6 @@ function solution(X, Y) {
         }
         
         const yArr = Y.split(X[i]);
-        
         if(yArr.length !== 1){
             const xArr = X.split(X[i]);
             
