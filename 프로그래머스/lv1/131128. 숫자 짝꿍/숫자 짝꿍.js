@@ -1,33 +1,37 @@
 function solution(X, Y) {    
-    let answer = [];
-    let stack = [];
-    
-    for(let i = 0; i < X.length; i++){
-        if(stack.includes(X[i])){
-            continue;
+    var answer = [];
+    var xdict = {};
+    var ydict = {};
+    for(xdata of X){
+        if(xdict[xdata]){
+            xdict[xdata] = xdict[xdata] + 1;
         }
-        
-        const yArr = Y.split(X[i]);
-        if(yArr.length !== 1){
-            const xArr = X.split(X[i]);
-            
-            const min = Math.min(xArr.length - 1, yArr.length - 1);
-            
-            answer.push(X[i].repeat(min));
+        else{
+            xdict[xdata] = 1;
         }
-        
-        stack.push(X[i]);
     }
-    
+    for(ydata of Y){
+        if(ydict[ydata]){
+            ydict[ydata] = ydict[ydata] + 1;
+        }
+        else{
+            ydict[ydata] = 1;
+        }
+    }
+    for (const key in xdict) {
+        const value = Math.floor(Math.min(xdict[key],ydict[key]));
+        if(value !== NaN){
+            for(let i = 0;i<value;i++){
+                answer.push(key);
+            }
+        }
+    }
+    answer.sort((a,b)=>b-a);
     if(answer.length === 0){
-        return "-1";
+        return '-1';
     }
-    
-    if(Number(answer.join("")) === 0){
-        return "0";
+    else if(answer[0] === '0'){
+        return '0';
     }
-    
-    answer = answer.join("").split("").sort((a,b) => b - a);
-    
     return answer.join("");
 }
