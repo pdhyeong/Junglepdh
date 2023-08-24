@@ -2,7 +2,6 @@ function solution(want, number, discount) {
     var answer = 0;
     var list = {};
     for(let i = 0;i<discount.length-9;i++){
-        var total = 0;
         var check = false;
         for(let i =0;i<want.length;i++){
             list[want[i]] = number[i];
