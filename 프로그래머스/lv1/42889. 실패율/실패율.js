@@ -2,7 +2,6 @@ function solution(N, stages) {
     var answer = [];
     var remain = stages.length;
     var sl = [];
-    stages.sort((a,b) => a-b);
     for(let i = 1;i<=N;i++){
         var count = 0;
         for(let j = 0;j<stages.length;j++){
