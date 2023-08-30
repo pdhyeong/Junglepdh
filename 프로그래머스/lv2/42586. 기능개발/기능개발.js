@@ -5,22 +5,18 @@ function solution(progresses, speeds) {
         var remain = (99 - progresses[i]) / speeds[i];
         sequence.push(Math.floor(remain)+1);
     }
-    var comp = 0;
-    var cnt = 1;
-    var dic = {};
+    var comp = sequence[0];
+    var cnt = 0;
     sequence.forEach((e)=> {
         if(comp < e){
-            comp = Math.max(comp,e);
+            answer.push(cnt);
+            comp = e;
             cnt = 1;
         }
         else{
             cnt += 1;
         }
-        dic[comp] = cnt;
     })
-
-    for (const key in dic) {
-        answer.push(dic[key]);
-    }
+    answer.push(cnt);
     return answer;
 }
