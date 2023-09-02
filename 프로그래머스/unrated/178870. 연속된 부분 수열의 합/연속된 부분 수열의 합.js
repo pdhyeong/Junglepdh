@@ -12,7 +12,8 @@ function solution(sequence, k) {
             answer.push([trace,i]);
         }
     }
-    let min = sequence.length
+    console.log(answer);
+    let min = 100000
     let savevalue = 0;
     for(let i = 0;i<answer.length;i++){
         if(answer[i][1] - answer[i][0] < min){
