@@ -23,7 +23,6 @@ string solution(string s) {
             if(st[i][j] >= 'A' && st[i][j] <= 'Z'){
                 st[i][j] += 32;
             }
-            cout << st[i][j] << ' ';
         }
         answer += st[i];
     }
