@@ -15,8 +15,8 @@ vector<int> solution(int n, vector<string> words) {
                 string st= myvec[myvec.size()-1];
                 char compchar = st[st.size()-1];
                 if(myvec[k] == words[j] || compchar != words[j][0]){
-                    answer.push_back((j%n)+1);
-                    answer.push_back(((i+n) / n));
+                    answer.push_back(j%n+1);
+                    answer.push_back(i/n+1);
                     flag1 = true;
                     break;
                 }
