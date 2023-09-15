@@ -7,14 +7,14 @@ using namespace std;
 
 int solution(int k, vector<int> tangerine) {
     int answer = 0;
-    map<string,int> mymap;
-    vector<pair<int,string>> sortmap;
+    map<int,int> mymap;
+    vector<pair<int,int>> sortmap;
     for(int i = 0;i<tangerine.size();i++){
-        if(mymap.find(to_string(tangerine[i])) != mymap.end()){
-            mymap[to_string(tangerine[i])] += 1;
+        if(mymap.find(tangerine[i]) != mymap.end()){
+            mymap[tangerine[i]] += 1;
         }
         else{
-            mymap[to_string(tangerine[i])] = 1;
+            mymap[tangerine[i]] = 1;
         }
     }
     for(const auto &pair : mymap){
