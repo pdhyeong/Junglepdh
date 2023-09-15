@@ -26,7 +26,7 @@ int solution(string s) {
         }
         if (st.empty() && flag) answer++;
 
-        char ch = s.front();
+        char ch = s[0];
         s.erase(s.begin());
         s.push_back(ch);
     }
