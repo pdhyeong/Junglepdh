@@ -1,39 +1,32 @@
 #include <string>
 #include <vector>
 #include <iostream>
-#include <deque>
+#include <algorithm>
 using namespace std;
 
 int solution(int cacheSize, vector<string> cities) {
     int answer = 0;
- 
-    deque<string> cache;
- 
-    for (int i = 0; i < cities.size(); i++) {
- 
-        string city = cities[i];
-        for (int j = 0; j < city.length(); j++) {
-            city[j] = tolower(city[j]);
-        }
- 
+    vector<string> st;
+    for(int i = 0;i<cities.size();i++){
+        transform(cities[i].begin(), cities[i].end(), cities[i].begin(), ::tolower);
+    }
+    for(int i = 0;i<cities.size();i++){
         bool hit = false;
-        int index = 0;
-        for (index = 0; index < cache.size(); index++) {
-            if (cache[index] == city) {
+        int j = 0;
+        for (j = 0; j < st.size(); j++) {
+            if (st[j] == cities[i]) {
                 hit = true;
                 break;
             }
         }
- 
-        cache.push_back(city);
- 
+        st.push_back(cities[i]);
         if (hit) {
-            cache.erase(cache.begin() + index);
+            st.erase(st.begin() + j);
             answer += 1;
         }
         else {
-            if (cache.size() > cacheSize) {
-                cache.pop_front();
+            if (st.size() > cacheSize) {
+                st.erase(st.begin());
             }
             answer += 5;
         }
