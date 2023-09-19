@@ -72,7 +72,7 @@ vector<string> intersection(vector<string> st1,vector<string> st2){
     return an;
 }
 
-int multiset(int st1,int st2){
+int union_length(int st1,int st2){
     return st1 + st2;
 }
 
@@ -81,7 +81,7 @@ int solution(string str1, string str2) {
     vector<string> st1 = union_set(str1);
     vector<string> st2 = union_set(str2);
     vector<string> an1 = intersection(st1,st2);
-    double countlen = multiset(st1.size(),st2.size()) - an1.size();
+    double countlen = union_length(st1.size(),st2.size()) - an1.size();
     double an1size = an1.size();
     if(countlen == 0 && an1.size() == 0){
         return 65536;
