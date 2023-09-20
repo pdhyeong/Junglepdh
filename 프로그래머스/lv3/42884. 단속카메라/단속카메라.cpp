@@ -5,21 +5,17 @@
 using namespace std;
 
 int solution(vector<vector<int>> routes) {
-    int answer = 1;
-    if(routes.size() == 1){
-        return answer;
-    }
-    int start = 30000;
+    int answer = 0;
     sort(routes.begin(),routes.end());
+    int install = routes[0][0] - 1;
     for(int i = 0;i<routes.size();i++){
         int in = routes[i][0];
         int out = routes[i][1];
-        if(in > start){
+        if(in > install){
             answer++;
-            start = out;
+            install = out;
         }
-        start = min(out,start);
+        install = min(out,install);
     }
-    
     return answer;
 }
