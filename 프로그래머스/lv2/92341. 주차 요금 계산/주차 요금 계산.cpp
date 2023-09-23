@@ -41,7 +41,6 @@ vector<int> solution(vector<int> fees, vector<string> records) {
         else{
             answer.push_back(basic_fee);
         }
-        
     }
     return answer;
 }
