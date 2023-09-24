@@ -4,7 +4,6 @@
 using namespace std;
 
 string solution(string my_string) {
-    string answer = "";
     char tmp;
     for(int i = 0;i<my_string.size()/2;i++){
         tmp = my_string[i];
