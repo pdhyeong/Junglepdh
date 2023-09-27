@@ -1,37 +1,58 @@
+#include <iostream>
 #include <string>
 #include <vector>
 #include <queue>
-#include <iostream>
+#include <cstring>
+#include <functional>
+
 using namespace std;
 
-vector<int> solution(vector<string> op) {
-    priority_queue<int, vector<int>> h1, h2;
-    int n = 0;
+priority_queue<int,vector<int>,greater<int>> min_heap;
+priority_queue<int> max_heap;
 
-    for (int i = 0; i < op.size(); i++) {
-        char s = op[i][0];
-        int data = stoi(op[i].substr(2));
-        if (s == 'I') {
-            h1.push(data);
-            h2.push(-data);
-            n++;
-        } else if (s == 'D') {
-            if (data == 1 && !h1.empty()) {
-                h1.pop(); n--;
-            } else if (data == -1 && !h2.empty()){
-                h2.pop(); n--;
-            }
+vector<int> solution(vector<string> arguments) {
+    vector<int> answer;
+
+    for(int i=0;i<arguments.size();i++)
+    {
+        string a = arguments[i];
+        char o = a[0];
+        int n = atoi(a.substr(2).c_str());
+
+        if(o == 'I')
+        {
+            min_heap.push(n);
+            max_heap.push(n);
         }
-        if (n == 0) {
-            h1 = priority_queue<int,vector<int>>();
-            h2 = priority_queue<int,vector<int>>();
+        else if(o == 'D' && n == 1)
+        {
+            if(max_heap.empty()) continue;
+            if(max_heap.top() == min_heap.top()) min_heap.pop();
+            max_heap.pop();
+        }
+        else if (o == 'D' && n == -1)
+        {
+            if(min_heap.empty()) continue;
+            if(max_heap.top() == min_heap.top()) max_heap.pop();
+            min_heap.pop();
+        }
+
+        if(max_heap.top() < min_heap.top())
+        {
+            while(!min_heap.empty()) min_heap.pop();
+            while(!max_heap.empty()) max_heap.pop();
         }
     }
-    vector<int> answer;
-    if (n <= 0) {
-        answer.push_back(0); answer.push_back(0);
-    } else {
-        answer.push_back(h1.top()); answer.push_back(-h2.top());
+
+    if(min_heap.empty()) 
+    {
+        answer.push_back(0);
+        answer.push_back(0);
+    }
+    else
+    {
+        answer.push_back(max_heap.top());
+        answer.push_back(min_heap.top());
     }
 
     return answer;
