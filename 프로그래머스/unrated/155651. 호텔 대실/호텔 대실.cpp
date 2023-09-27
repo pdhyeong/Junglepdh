@@ -8,24 +8,18 @@ using namespace std;
 int solution(vector<vector<string>> book_time) {
     int answer = 0;
     priority_queue<int,vector<int>,greater<int>> timetable;
-    vector<pair<int,int>> change_int;
+    sort(book_time.begin(),book_time.end());
+    
     for(int i = 0;i<book_time.size();i++){
         int in_hour = stoi(book_time[i][0].substr(0,2));
         int in_minute = stoi(book_time[i][0].substr(3,2));
         int out_hour = stoi(book_time[i][1].substr(0,2));
         int out_minute = stoi(book_time[i][1].substr(3,2));
-        change_int.push_back({60 * in_hour + in_minute,60 * out_hour + out_minute});
-    }
-    sort(change_int.begin(),change_int.end());
-    timetable.push(change_int[0].second + 10);
-    for(int i = 1;i<change_int.size();i++){
-        if(timetable.top() <= change_int[i].first){
-            timetable.push(change_int[i].second + 10);
+        while(!timetable.empty() && timetable.top() <= 60 * in_hour + in_minute){
             timetable.pop();
         }
-        else{
-            timetable.push(change_int[i].second + 10);
-        }
+        timetable.push(out_hour * 60 + out_minute+10);
+        answer = max(answer, (int)timetable.size());
     }
-    return timetable.size();
+    return answer;
 }
