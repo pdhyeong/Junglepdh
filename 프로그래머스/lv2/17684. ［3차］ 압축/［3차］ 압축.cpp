@@ -18,7 +18,7 @@ vector<int> solution(string msg) {
     for (int i = 0; i < msg.length(); i++)
     {
         search += msg[i];
-        if (dict[search] == 0)
+        if (dict.find(search) == dict.end())
         {
             dict[search] = max_size++;
             search = search.substr(0, search.length() - 1);
