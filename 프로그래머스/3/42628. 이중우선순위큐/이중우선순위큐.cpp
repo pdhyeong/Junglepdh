@@ -7,7 +7,7 @@ using namespace std;
 
 vector<int> solution(vector<string> operations) {
     vector<int> answer;
-    deque<int> dq;
+    vector<int> dq;
     for(int i = 0;i<operations.size();i++){
         char check = operations[i][0];
         string s = operations[i].substr(2);
@@ -17,7 +17,7 @@ vector<int> solution(vector<string> operations) {
         }
         else if(check == 'D' && s[0] == '-'){
             if(dq.size() == 0) continue;
-            dq.pop_front();
+            dq.erase(dq.begin()+0);
         }
         else if(check == 'D' && stoi(s)){
             if(dq.size() == 0) continue;
@@ -29,8 +29,8 @@ vector<int> solution(vector<string> operations) {
         answer.push_back(0);
     }
     else{
-        answer.push_back(dq.back());
-        answer.push_back(dq.front());
+        answer.push_back(dq[dq.size()-1]);
+        answer.push_back(dq[0]);
     }
     return answer;
 }
