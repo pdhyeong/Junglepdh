@@ -33,19 +33,9 @@ vector<int> solution(vector<string> genres, vector<int> plays) {
         });
     }
     for(int i = 0;i<comp.size();i++){
-        if(cate[comp[i].second].size() < 2){
-            for(int j = 0;j<cate[comp[i].second].size();j++){
-               answer.push_back(cate[comp[i].second][j].second);
-            }
+        for(int j = 0;j<cate[comp[i].second].size() && j < 2;j++){
+            answer.push_back(cate[comp[i].second][j].second);
         }
-        else{
-            for(int j = 0;j<2;j++){
-               answer.push_back(cate[comp[i].second][j].second);
-            }
-        }
-        // for(int j = 0;j<cate[comp[i].second].size() && j < 2;j++){
-        //     answer.push_back(cate[comp[i].second][j].second);
-        // }
     }
     return answer;
 }
