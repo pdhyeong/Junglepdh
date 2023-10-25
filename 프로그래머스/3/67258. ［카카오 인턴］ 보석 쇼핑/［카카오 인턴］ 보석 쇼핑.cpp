@@ -4,60 +4,37 @@
 using namespace std;
 
 vector<int> solution(vector<string> gems) {
-    vector<int> answer(2,0);
-    unordered_map<string, int> jMap;
-    int gSize = gems.size();
-    // 보석 종류
-    int gemCount = 0;
-
-    // 현재 구간
+    vector<int> answer;
+    unordered_map<string,int> gmap;
     int head = 0;
     int end = 0;
-
-    // 최소 구간
     int headMin = 0;
     int endMin = 0;
-
-
-    for (int i = 0; i < gSize; ++i)
-    {
-        // 보석 추가
-        jMap[gems[i]]++;
-        // 보석이 1개 있다면 새로운 보석이 추가됨.
-        if(jMap[gems[i]] == 1)
-        {
-            // 보석 갯수 갱신, 최소 구간 갱신
-            gemCount++;
+    for(int i = 0;i<gems.size();i++){
+        gmap[gems[i]]++;
+        if(gmap[gems[i]] == 1){
             end = i;
             headMin = head;
             endMin = end;
-        } else
-        {
-            //보석이 2개 이상 있다면 기존 구간 좁힘
+        }
+        else{
             end = i;
-            for(int j=head;j<i;j++)
-            {
-                // head 쪽에 2개 이상 있는 경우 1개 제거함.
-                if(jMap[gems[j]] > 1)
-                {
-                    jMap[gems[j]]--;
-                } else
-                {
-                    // 1개만 있는 경우 해당 위치를 구간의 시작으로 잡고 갱신 종료함.
+            for(int j = head;j<i;j++){
+                if(gmap[gems[j]] > 1){
+                    gmap[gems[j]]--;
+                }
+                else{
                     head = j;
-                    //이때 수정된 구간의 길이가 기존 구간보다 짧으면 구간을 갱신함.
-                    if( (end - head) < (endMin - headMin) )
-                    {
-                        headMin = head;
+                    if(end - head < endMin - headMin){
                         endMin = end;
+                        headMin = head;
                     }
                     break;
                 }
             }
         }
     }
-
-    answer[0] = headMin+1;
-    answer[1] = endMin+1;
+    answer.push_back(headMin+1);
+    answer.push_back(endMin+1);
     return answer;
 }
