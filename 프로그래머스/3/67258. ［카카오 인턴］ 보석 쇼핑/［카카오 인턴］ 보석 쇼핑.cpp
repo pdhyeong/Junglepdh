@@ -4,37 +4,36 @@
 using namespace std;
 
 vector<int> solution(vector<string> gems) {
-    vector<int> answer;
+    vector<int> answer(2,0);
     unordered_map<string,int> gmap;
-    int head = 0;
+    int start = 0;
     int end = 0;
-    int headMin = 0;
-    int endMin = 0;
+    int comp_start = 0;
+    int comp_end = 0;
     for(int i = 0;i<gems.size();i++){
         gmap[gems[i]]++;
+        end = i;
         if(gmap[gems[i]] == 1){
-            end = i;
-            headMin = head;
-            endMin = end;
+            comp_start = start;
+            comp_end = end;
         }
         else{
-            end = i;
-            for(int j = head;j<i;j++){
+            for(int j = start ; j < i;j++){
                 if(gmap[gems[j]] > 1){
                     gmap[gems[j]]--;
                 }
                 else{
-                    head = j;
-                    if(end - head < endMin - headMin){
-                        endMin = end;
-                        headMin = head;
+                    start = j;
+                    if(end - start < comp_end - comp_start){
+                        comp_end = end;
+                        comp_start = start;
                     }
                     break;
                 }
             }
         }
     }
-    answer.push_back(headMin+1);
-    answer.push_back(endMin+1);
+    answer[0] = comp_start + 1;
+    answer[1] = comp_end + 1;
     return answer;
 }
