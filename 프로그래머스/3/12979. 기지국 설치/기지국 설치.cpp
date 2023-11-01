@@ -4,22 +4,17 @@ using namespace std;
 
 int solution(int n, vector<int> stations, int w)
 {
-    int answer = 0, start = 1, index = 0;
-
-    while(start <= n)
-    {
-        if(start >= stations[index] - w && start <= stations[index] + w)
-        {
-            start = stations[index] + w;
+    int answer = 0;
+    int index = 0;
+    for(int i = 1;i<=n;i++){
+        if(index < stations.size() && i >= stations[index] - w){
+            i = stations[index] + w;
             index++;
         }
-        else
-        {
-            start += 2 * w;
+        else{
             answer++;
+            i += w * 2;
         }
-        start++;
     }
-
     return answer;
 }
