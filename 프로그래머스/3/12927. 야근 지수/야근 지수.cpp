@@ -7,7 +7,7 @@ long long solution(int n, vector<int> works) {
     long long answer = 0;
     priority_queue<int> pq;
     for(int i = 0;i<works.size();i++) pq.push(works[i]);
-    while(n-- && !pq.empty()){
+    while(n--){
         if(pq.top() < 1){
             return 0;
         }
