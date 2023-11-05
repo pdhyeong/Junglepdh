@@ -5,35 +5,57 @@ using namespace std;
 
 vector<int> solution(vector<string> gems) {
     vector<int> answer(2,0);
-    unordered_map<string,int> gmap;
-    int start = 0;
+    unordered_map<string, int> jMap;
+    int gSize = gems.size();
+    // 보석 종류
+    int gemCount = 0;
+
+    // 현재 구간
+    int head = 0;
     int end = 0;
-    int comp_start = 0;
-    int comp_end = 0;
-    for(int i = 0;i<gems.size();i++){
-        gmap[gems[i]]++;
+
+    // 최소 구간
+    int headMin = 0;
+    int endMin = 0;
+
+
+    for (int i = 0; i < gSize; ++i)
+    {
+        // 보석 추가
+        jMap[gems[i]]++;
+        // 보석이 1개 있다면 새로운 보석이 추가됨.
         end = i;
-        if(gmap[gems[i]] == 1){
-            comp_start = start;
-            comp_end = end;
-        }
-        else{
-            for(int j = start ; j < i;j++){
-                if(gmap[gems[j]] > 1){
-                    gmap[gems[j]]--;
-                }
-                else{
-                    start = j;
-                    if(end - start < comp_end - comp_start){
-                        comp_end = end;
-                        comp_start = start;
+        if(jMap[gems[i]] == 1)
+        {
+            headMin = head;
+            endMin = end;
+        } else
+        {
+            //보석이 2개 이상 있다면 기존 구간 좁힘
+            end = i;
+            for(int j=head;j<i;j++)
+            {
+                // head 쪽에 2개 이상 있는 경우 1개 제거함.
+                if(jMap[gems[j]] > 1)
+                {
+                    jMap[gems[j]]--;
+                } else
+                {
+                    // 1개만 있는 경우 해당 위치를 구간의 시작으로 잡고 갱신 종료함.
+                    head = j;
+                    //이때 수정된 구간의 길이가 기존 구간보다 짧으면 구간을 갱신함.
+                    if( (end - head) < (endMin - headMin) )
+                    {
+                        headMin = head;
+                        endMin = end;
                     }
                     break;
                 }
             }
         }
     }
-    answer[0] = comp_start + 1;
-    answer[1] = comp_end + 1;
+
+    answer[0] = headMin+1;
+    answer[1] = endMin+1;
     return answer;
 }
