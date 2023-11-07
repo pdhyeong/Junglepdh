@@ -31,10 +31,7 @@ vector<int> solution(int n) {
         i += 2; j++;
     }
     for(int i = 0;i<n;i++){
-        for(int j = 0;j<n;j++){
-            if(arr[i][j] == 0){
-                continue;
-            }
+        for(int j = 0;j<=i;j++){
             answer.push_back(arr[i][j]);
         }
     }
