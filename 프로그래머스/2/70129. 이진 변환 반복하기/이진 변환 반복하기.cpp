@@ -1,34 +1,32 @@
 #include <string>
 #include <vector>
-
+#include <iostream>
 using namespace std;
-
+// s 의 모든 0 을 제거
+// 제거한 0를 s로 다시 만들고 s를 다시 이진법으로 표현한것을 반복
 vector<int> solution(string s) {
     vector<int> answer(2);
-    int sum = 0;
-    int count = 0;
-    while(s!="1"){
-        int bitcount = 0;
+    while(s != "1"){
+        int zerocount = 0;
         for(int i = 0;i<s.size();i++){
-            if(s[i] == '1'){
-                bitcount++;
+            if(s[i] == '0'){
+                zerocount++;
             }
         }
-        sum += s.size() - bitcount;
-        string a = "";
-        while(bitcount > 0){
-            if(bitcount & 1){
-                a += '1';
+        string temp = "";
+        answer[1] += zerocount;
+        int delsize = s.size() - zerocount;
+        while(delsize > 0){
+            if(delsize & 1){
+                temp += "1";
             }
             else{
-                a += '0';
+                temp += "0";
             }
-            bitcount /= 2;
+            delsize = delsize >> 1;
         }
-        s = a;
-        count++;
+        s = temp;
+        answer[0]++;
     }
-    answer[0] = count;
-    answer[1] = sum;
     return answer;
 }
