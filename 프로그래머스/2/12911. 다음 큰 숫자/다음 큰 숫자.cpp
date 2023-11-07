@@ -1,23 +1,23 @@
 #include <string>
 #include <vector>
-#include <iostream>
+
 using namespace std;
+// 비트의 갯수가 같은 바로 다음 자연수
 int bitcheck(int n){
-    int bit = 0;
+    int bitcount = 0;
     while(n > 0){
         if(n & 1){
-            bit++;
+            bitcount++;
         }
         n = n >> 1;
     }
-    return bit;
+    return bitcount;
 }
 int solution(int n) {
-    int answer = 0;
-    int bit = bitcheck(n);
+    int temp = bitcheck(n);
     while(1){
         n++;
-        if(bit == bitcheck(n)){
+        if(temp == bitcheck(n)){
             break;
         }
     }
