@@ -10,11 +10,11 @@ vector<int> solution(int brown, int yellow) {
     vector<int> answer(2);
     // 세로
     int j,i;
-    for(i = 0;i<=5000;i++){
+    for(i = 1;i<=5000;i++){
         //가로
         bool flag = false;
         for(j = i;j<=5000;j++){
-            if((2 * i) + (2*j) - 4 == brown){
+            if((2 * i) + (2 * j) - 4 == brown){
                 flag = true;
                 break;
             }
