@@ -5,47 +5,27 @@
 using namespace std;
 
 vector<int> solution(int n, vector<string> words) {
-    vector<int> answer;
+    vector<int> answer(2);
     map<string,int> mymap;
+    
     for(int i = 0;i<words.size();i++){
         mymap[words[i]]++;
     }
-    char prev;
-    char now;
-    int turn = 0;
-    for(int i = 0;i<words.size();i+=n){
-        turn++;
-        bool flag = false;
-        // turn
-        for(int j = i;j<n+i && j < words.size() ;j++){
-            if(j > 0){
-                prev = words[j-1][words[j-1].size()-1];
-                now = words[j][0];
-                if(prev != now){
-                    answer.push_back(j % n + 1);
-                    answer.push_back(turn);
-                    flag = true;
-                    break;
-                }
-            }
-            if(mymap.find(words[j]) == mymap.end()){
-                answer.push_back(j % n + 1);
-                answer.push_back(turn);
-                flag = true;
-                break;
-            }
-            else{
-                mymap.erase(words[j]);
-            }
+    mymap.erase(words[0]);
+    for(int i = 1;i<words.size();i++){
+        char pre = words[i-1][words[i-1].size()-1];
+        char now = words[i][0];
+        if(pre != now){
+            answer[0] = i % n + 1;
+            answer[1] = i / n + 1;
+            return answer;
         }
-        if(flag){
-            break;
+        if(mymap[words[i]] < 1){
+            answer[0] = i % n + 1;
+            answer[1] = i / n + 1;
+            return answer;
         }
-        cout << '\n';
+        mymap.erase(words[i]);
     }
-    if(answer.size() == 0){
-        answer.push_back(0);
-        answer.push_back(0);
-    }
-    return answer;
+    return {0,0};
 }
