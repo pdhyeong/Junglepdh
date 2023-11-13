@@ -14,12 +14,13 @@ int solution(vector<int> scoville, int K) {
     for(int i = 0;i<scoville.size();i++){
         pq.push(scoville[i]);
     }
-    while(pq.size() > 1 && pq.top() < K){
+    while(pq.size() > 1){
+        if(pq.top() >= K)
+            return answer;
         int fir = pq.top();
         pq.pop();
         int sec = pq.top();
         pq.pop();
-        
         int comp = fir + (sec * 2);
         pq.push(comp);
         answer++;
