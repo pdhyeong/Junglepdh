@@ -13,8 +13,7 @@ int solution(vector<int> priorities, int location) {
         pq.push(priorities[i]);
     }
     while(!q.empty()){
-        // cout << q.front().first << " " << q.front().second << '\n';
-        if(q.front().first >= pq.top()){
+        if(q.front().first == pq.top()){
             answer++;
             if(q.front().second == location){
                 return answer;
