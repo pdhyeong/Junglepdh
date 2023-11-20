@@ -1,35 +1,33 @@
 #include <iostream>
+#include <string>
+#include <vector>
 #include <cmath>
-
-bool isPrime(long long x) {
-    if (x == 0 || x == 1) {
+using namespace std;
+bool isPrimeNumber(long long x) {
+    if(x == 1 || x == 0){
         return false;
     }
-    for (int i = 2; i <= sqrt(x); ++i) {
+    for (int i = 2; i <= (int) sqrt(x); i++) {
         if (x % i == 0) {
-            return false;
+            return false; 
         }
     }
     return true;
 }
-
-int main() {
-    int T;
-    std::cin >> T;
-
-    for (int t = 0; t < T; ++t) {
-        long long n;
-        std::cin >> n;
-
-        while (true) {
-            if (isPrime(n)) {
-                std::cout << n << '\n';
+int main(){
+    int n;
+    cin >> n;
+    for(int i = 0;i<n;i++){
+        long long k;
+        long long answer = 0;
+        cin >> k;
+        while(1){
+            if(isPrimeNumber(k)){
+                cout << k << '\n';
                 break;
-            } else {
-                ++n;
             }
+            k++;
         }
     }
-
     return 0;
 }
