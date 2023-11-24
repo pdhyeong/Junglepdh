@@ -33,6 +33,8 @@ int solution(string str1, string str2) {
     vector<string> set2 = change_str(str2);
     map<string,int> insection;
     map<string,int> reinsection;
+    double as = 0;
+    double bs = 0;
     for(int i = 0;i<set1.size();i++){
         mymap1[set1[i]]++;
     }
@@ -44,36 +46,15 @@ int solution(string str1, string str2) {
             reinsection[pair.first] = min(pair.second,mymap2[pair.first]);
         }
     }
-    for(const auto & pair: mymap1){
-        if(mymap2.find(pair.first) != mymap2.end()){
-            insection[pair.first] = max(pair.second,mymap2[pair.first]);
-        }
-        else{
-            insection[pair.first] = pair.second;
-        }
-    }
-    for(const auto & pair: mymap2){
-        if(mymap1.find(pair.first) != mymap1.end()){
-            insection[pair.first] = max(pair.second,mymap1[pair.first]);
-        }
-        else{
-            insection[pair.first] = pair.second;
-        }
-    }
-    double as = 0;
-    double bs = 0;
     for(const auto &pair: reinsection){
-        as += pair.second;
-    }
-    for(const auto &pair: insection){
         bs += pair.second;
     }
-    double re = as / bs;
+    as = (set1.size()+set2.size() - bs);
+    double re = bs / as;
     if(re>0){
         answer = floor(re*65536);
     }
     else{
-        cout << as << ' ' << bs;
         if(as == 0 && bs != 0){
             return 0;
         }
