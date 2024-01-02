@@ -1,32 +1,29 @@
 #include <string>
 #include <vector>
-#include <unordered_map>
-#include <iostream>
+#include <set>
+
 using namespace std;
 
 int solution(vector<string> want, vector<int> number, vector<string> discount) {
+    multiset<string> ms, tmp;
     int answer = 0;
-    unordered_map<string,int> mymap;
-    unordered_map<string,int> mymap2;
-    
-    for(int i = 0;i<want.size();i++){
-        mymap[want[i]] = number[i];
-    }
-    for(int i = 0;i<discount.size()-9;i++){
-        mymap2 = mymap;
-        bool flag = false;
-        for(int j = i;j<i+10;j++){
-            mymap2[discount[j]]--;
+
+    for(int i = 0; i < want.size(); i++) {
+        for(int j = 0; j < number[i]; j++) {
+            ms.insert(want[i]);
         }
-        for(auto &pair:mymap2){
-            if(pair.second != 0){
-                flag = true;
-                break;
+    }
+
+    for(int i = 0; i < discount.size() - 9; i++) {
+        tmp = ms;
+        for(int j = 0; j < 10; j++) {
+            multiset<string>::iterator it = tmp.find(discount[i+j]);
+            if(it != tmp.end()) {
+                tmp.erase(it);
             }
         }
-        if(!flag){
-            answer++;
-        }
+        if(tmp.empty()) answer++;
     }
+
     return answer;
 }
