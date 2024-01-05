@@ -1,21 +1,24 @@
 #include <string>
 #include <vector>
 #include <algorithm>
-#include <iostream>
 using namespace std;
-
+vector<int> slice(vector<int> & array,int start,int end){
+    vector<int> result;
+    for(int i = start-1;i<end;i++){
+        result.push_back(array[i]);
+    }
+    sort(result.begin(),result.end());
+    return result;
+}
 vector<int> solution(vector<int> array, vector<vector<int>> commands) {
     vector<int> answer;
+    
     for(int i = 0;i<commands.size();i++){
-        vector<int> vec;
-        int start = commands[i][0]-1;
+        int start = commands[i][0];
         int end = commands[i][1];
-        int k = commands[i][2];
-        for(int j = start;j<end;j++){
-            vec.push_back(array[j]);
-        }
-        sort(vec.begin(),vec.end());
-        answer.push_back(vec[k-1]);
+        int target = commands[i][2];
+        vector<int> result = slice(array,start,end);
+        answer.push_back(result[target-1]);
     }
     return answer;
 }
