@@ -1,32 +1,37 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <algorithm>
 using namespace std;
-// s 의 모든 0 을 제거
-// 제거한 0를 s로 다시 만들고 s를 다시 이진법으로 표현한것을 반복
 vector<int> solution(string s) {
-    vector<int> answer(2);
+    vector<int> answer;
+    int count = 0;
+    int total = 0;
     while(s != "1"){
-        int zerocount = 0;
+        int check_zero = 0;
+        int change_size = 0;
+        string as = "";
         for(int i = 0;i<s.size();i++){
             if(s[i] == '0'){
-                zerocount++;
+                check_zero++;
             }
         }
-        string temp = "";
-        answer[1] += zerocount;
-        int delsize = s.size() - zerocount;
-        while(delsize > 0){
-            if(delsize & 1){
-                temp += "1";
+        change_size = s.size() - check_zero;
+        while(change_size > 0){
+            if(change_size % 2 ==0){
+                as += "0";
             }
             else{
-                temp += "0";
+                as += "1";
             }
-            delsize = delsize >> 1;
+            change_size /= 2;
         }
-        s = temp;
-        answer[0]++;
+        reverse(as.begin(),as.end());
+        s = as;
+        count++;
+        total += check_zero;
     }
+    answer.push_back(count);
+    answer.push_back(total);
     return answer;
 }
