@@ -125,7 +125,7 @@ int main(){
             total += "8";
         }
         else if(s == "***\n* *\n***\n  *\n***\n"){
-            total += "9";
+            total += '9';
         }
         else{
             flag = true;
