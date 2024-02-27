@@ -5,17 +5,16 @@
 using namespace std;
 
 int solution(vector<int> elements) {
-    int answer = 0;
-    vector<int> newel;
-    set<int> myset;
-    for(int i = 0;i<elements.size()*2-1;i++){
-        newel.push_back(elements[i%elements.size()]);
+    vector<int> ele = elements;
+    for(int i = 0;i<elements.size()-1;i++){
+        ele.push_back(elements[i]);
     }
+    set<int> myset;
     for(int i = 0;i<elements.size();i++){
-        int sum = 0;
-        for(int j = i;j<elements.size()+i;j++){
-            sum += newel[j];
-            myset.insert(sum);
+        int n = 0;
+        for(int j = i;j<i+elements.size();j++){
+            n += ele[j];
+            myset.insert(n);
         }
     }
     return myset.size();
