@@ -1,7 +1,7 @@
 #include <string>
 #include <vector>
 #include <iostream>
-#include <set>
+#include <unordered_map>
 using namespace std;
 
 int solution(vector<int> elements) {
@@ -9,13 +9,13 @@ int solution(vector<int> elements) {
     for(int i = 0;i<elements.size()-1;i++){
         ele.push_back(elements[i]);
     }
-    set<int> myset;
+    unordered_map<int,int> mymap;
     for(int i = 0;i<elements.size();i++){
         int n = 0;
         for(int j = i;j<i+elements.size();j++){
             n += ele[j];
-            myset.insert(n);
+            mymap[n]++;
         }
     }
-    return myset.size();
+    return mymap.size();
 }
