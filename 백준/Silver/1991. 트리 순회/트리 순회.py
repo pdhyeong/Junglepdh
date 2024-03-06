@@ -1,34 +1,34 @@
 import sys
-input = sys.stdin.readline
-
-
-n = int(input())
-tree = dict()
-
-for i in range(n):
-  root,left,right = map(str,input().split())
-  tree[root] = [left,right]
-
+ 
+N = int(sys.stdin.readline().strip())
+graph = {}
+ 
+for n in range(N):
+    root, dest1, dest2 = sys.stdin.readline().strip().split()
+    graph[root] = [dest1, dest2]
+ 
+ 
 def preorder(root):
-  if root != '.':
-    print(root,end='')
-    preorder(tree[root][0])
-    preorder(tree[root][1])
-
-
+    if root != '.':
+        print(root, end='')
+        preorder(graph[root][0])  
+        preorder(graph[root][1])  
+ 
+ 
 def inorder(root):
-  if root != '.':
-    inorder(tree[root][0])
-    print(root,end='')
-    inorder(tree[root][1])
-
-
+    if root != '.':
+        inorder(graph[root][0])
+        print(root, end='')  
+        inorder(graph[root][1])  
+ 
+ 
 def postorder(root):
-  if root != '.':
-    postorder(tree[root][0])
-    postorder(tree[root][1])
-    print(root,end='')
-
+    if root != '.':
+        postorder(graph[root][0])  
+        postorder(graph[root][1])  
+        print(root, end='')  
+ 
+ 
 preorder('A')
 print()
 inorder('A')
