@@ -16,6 +16,33 @@ int max_Value(int a,int b){
 }
 int main() {
     // 접시 수,초밥 가지수, 연속해서 먹는 접시수 ,쿠폰 번호
+    // int n,d,k,c;
+    // vector<int> dish;
+    // cin >> n >> d >> k >> c;
+    // for(int i = 0;i<n;i++){
+    //     int a;
+    //     cin >> a;
+    //     dish.push_back(a);
+    // }
+    // int answer = 0;
+    // int coupon = 0;
+    // int flag = 0;
+    // for(int i = 0;i<dish.size();i++){
+    //     flag = 0;
+    //     coupon = 1;
+    //     for(int j = i;j < k + i;j++){
+    //         if(check[dish[j%n]] == 1){
+    //             //중복 갯수 체크
+    //             flag++;
+    //         }
+    //         else check[dish[j%n]] = 1;
+    //     }
+    //     if(check[c] == 1) coupon = 0;
+    //     answer = max(answer,k-flag+coupon);
+    //     memset(check,0,sizeof(check));
+    // }
+    // cout << answer;
+    // 개선 버전
     int n,d,k,c;
     vector<int> dish;
     cin >> n >> d >> k >> c;
@@ -24,23 +51,23 @@ int main() {
         cin >> a;
         dish.push_back(a);
     }
-    int answer = 0;
-    int coupon = 0;
-    int flag = 0;
-    for(int i = 0;i<dish.size();i++){
-        flag = 0;
-        coupon = 1;
-        for(int j = i;j < k + i;j++){
-            if(check[dish[j%n]] == 1){
-                //중복 갯수 체크
-                flag++;
-            }
-            else check[dish[j%n]] = 1;
-        }
-        if(check[c] == 1) coupon = 0;
-        answer = max(answer,k-flag+coupon);
-        memset(check,0,sizeof(check));
+    int cnt = 0,result = 0;
+    int left = 0; int right = k - 1;
+    for(int i=0;i<k;i++){
+        check[dish[i]]++;
+        if(check[dish[i]]==1)
+            cnt++;
     }
-    cout << answer;
+    check[c]++;
+    if(check[c]==1) cnt++;
+    
+    while(left<n){
+        result = max(result,cnt);
+        if(--check[dish[left++]]==0) cnt--;
+        right = (right+1)%n;
+        if(++check[dish[right]]==1) cnt++;
+        
+    }
+    cout<<result;
     return 0;
 }
