@@ -8,6 +8,9 @@ long long dp[100001][2];
 int check[100001];
 int max_value(int a,int b) {if(a > b) return a; return b;}
 int main() {
+    ios::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
     int n;
     cin >> n;
     int maxi = 0;
