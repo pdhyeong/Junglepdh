@@ -3,21 +3,19 @@
 #include <vector>
 #include <algorithm>
 #include <queue>
-#include <map>
 using namespace std;
 int dx[4] = {1,-1,0,0};
 int dy[4] = {0,0,1,-1};
-bool visited[501][501];
-int max_yValue = 0;
 int n;
 int m;
+
 pair<int,int> checking_soil(vector<vector<int>> &land,int x,int y){
     pair<int,int> p;
     int Y_value = 0;
     int result = 0;
     queue<pair<int,int>> q;
     q.push(make_pair(x,y));
-    visited[x][y] = 1;
+    land[x][y] = 0;
     result++;
     
     while(!q.empty()){
@@ -29,9 +27,9 @@ pair<int,int> checking_soil(vector<vector<int>> &land,int x,int y){
         for(int i = 0;i<4;i++){
             int nx = sx + dx[i];
             int ny = sy + dy[i];
-            if(0<=nx && nx < n && 0 <= ny && ny < m && !visited[nx][ny] && land[nx][ny]){
+            if(0<=nx && nx < n && 0 <= ny && ny < m && land[nx][ny]){
                 q.push(make_pair(nx,ny));
-                visited[nx][ny] = 1;
+                land[nx][ny] = 0;
                 result++;
             }
         }
@@ -51,7 +49,7 @@ int solution(vector<vector<int>> land) {
         int count = 0;
         int start = j;
         for(int i = 0;i < land.size();i++){
-            if(land[i][j] && !visited[i][j]){
+            if(land[i][j]){
                 p = checking_soil(land,i,j);
                 count = p.first;
                 vec.push_back({{start,p.second},count});
