@@ -4,49 +4,28 @@
 #include <unordered_map>
 using namespace std;
 unordered_map<char,int> mp;
-
-void clear(){
-    for(auto pair:mp){
-        mp[pair.first] = 0;
-    }
-}
-
-bool check(char main){
-    int data = mp[main];
-    int sum = 0;
-    for(auto pair:mp){
-        if(pair.first != main){
-            sum += mp[pair.first];
-        }
-    }
-    if(sum == data) return true;
-    return false;
-}
-
-bool remain(){
-    int sum = 0;
-    for(auto pair:mp){
-        sum += pair.second;
-    }
-    return sum != 0 ? true:false;
-}
-
 int solution(string s) {
     int answer = 0;
-    for(char i = 'a';i<='z';i++){
-        mp[i] = 0;
-    }
-    char start = s[0];
-    for(int i = 0;i<s.size()-1;i++){
-        mp[s[i]]++;
-        if(check(start)){
-            clear();
+    char x_str = s[0];
+    int xcount = 1;
+    int othercount = 0;
+    for(int i = 1;i<s.size();i++){
+        if(xcount == 0){
+            x_str = s[i];
+        }
+        if(s[i] == x_str){
+            xcount++;
+        }
+        else{
+            othercount++;
+        }
+        if(xcount == othercount){
             answer++;
-            start = s[i+1];
+            xcount = 0;
+            othercount = 0;
         }
     }
-    mp[s[s.size()-1]]++;
-    if(remain()){
+    if(xcount > 0 || othercount > 0){
         answer++;
     }
     return answer;
