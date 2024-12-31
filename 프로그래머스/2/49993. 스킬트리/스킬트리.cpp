@@ -20,7 +20,6 @@ int solution(string skill, vector<string> skill_trees) {
         }
         for(int comp_index = 0;comp_index<temp.size();comp_index++){
             if(temp[comp_index] != skill[comp_index]){
-                cout << skill[comp_index] << ' ';
                 count++;
                 break;
             }
