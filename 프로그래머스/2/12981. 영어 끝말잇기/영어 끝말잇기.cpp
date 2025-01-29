@@ -1,31 +1,25 @@
 #include <string>
+#include <unordered_map>
 #include <vector>
 #include <iostream>
-#include <map>
+
 using namespace std;
 
 vector<int> solution(int n, vector<string> words) {
-    vector<int> answer(2);
-    map<string,int> mymap;
-    
-    for(int i = 0;i<words.size();i++){
-        mymap[words[i]]++;
-    }
-    mymap.erase(words[0]);
+    vector<int> answer;
+    unordered_map<string,int> wordschecker;
+    wordschecker[words[0]] += 1;
+    char suffix = words[0][words[0].size()-1];
     for(int i = 1;i<words.size();i++){
-        char pre = words[i-1][words[i-1].size()-1];
-        char now = words[i][0];
-        if(pre != now){
-            answer[0] = i % n + 1;
-            answer[1] = i / n + 1;
+        wordschecker[words[i]] += 1;
+        if(wordschecker[words[i]] >= 2 || suffix != words[i][0]){
+            answer.push_back(i % n + 1);
+            answer.push_back(i / n + 1);
             return answer;
         }
-        if(mymap[words[i]] < 1){
-            answer[0] = i % n + 1;
-            answer[1] = i / n + 1;
-            return answer;
-        }
-        mymap.erase(words[i]);
+        suffix = words[i][words[i].size()-1];
     }
-    return {0,0};
+    answer.push_back(0);
+    answer.push_back(0);
+    return answer;
 }
